@@ -75,14 +75,10 @@ class Hangman:
                 print(f"Sorry, '{guess}' is not in the word.")
 
             if self.check_win():
-                print(
-                    f"\nCongratulations! You've guessed the word: {self.word_to_guess}"
-                )
+                print(f"\nCongratulations! You've guessed the word: {''.join(self.word_to_guess)}")
                 break
         else:
-            print(
-                f"\nOut of attempts! The word was: {self.word_to_guess}. Better luck next time."
-            )
+            print(f"\nOut of attempts! The word was: {''.join(self.word_to_guess)}. Better luck next time.")
 
 
 if __name__ == "__main__":
