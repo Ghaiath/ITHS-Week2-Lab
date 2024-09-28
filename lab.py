@@ -23,7 +23,6 @@ class Hangman:
             map(str.lower, list(words[randint(0, len(words) - 1)]))
         )
         self.current_state = list("_" * len(self.word_to_guess))
-        self.guessed_letters = set()
         self.used_letters = set()
         self.attempts_left = max_attempts
 
@@ -35,21 +34,20 @@ class Hangman:
         print(f"Remaining attempts: {self.attempts_left}")
 
     def check_win(self):
-        return all(letter in self.guessed_letters for letter in self.word_to_guess)
+        return all(letter in self.current_state for letter in self.word_to_guess)
 
     def get_valid_guess(self):
-        guess = input("\nEnter a letter: ").lower()
 
-        if len(guess) != 1 or not guess.isalpha():
-            print("Invalid input. Please enter a single alphabetical character.")
-            return
+        while True:
+            guess = input("\nEnter a letter: ").lower()
 
-        if guess in self.used_letters:
-            print(f"You've already guessed '{guess}'. Try a different letter.")
-            return
-
-        self.used_letters.add(guess)
-        return guess
+            if len(guess) != 1 or not guess.isalpha():
+                print("Invalid input. Please enter a single alphabetical character.")
+            elif guess in self.used_letters:
+                print(f"You've already guessed '{guess}'. Try a different letter.")
+            else:
+                self.used_letters.add(guess)
+                return guess
 
     def update_word_progress(self, guess):
         if guess not in self.word_to_guess:
@@ -57,16 +55,13 @@ class Hangman:
 
         for i, letter in enumerate(self.word_to_guess):
             if letter == guess:
-                self.guessed_letters.add(guess)
                 self.current_state[i] = guess
 
         return True
 
     def play(self):
         print("Welcome to Hangman!")
-        print(
-            f"The word you have to guess consists of {len(self.word_to_guess)} character."
-        )
+        print(f"The word you have to guess consists of {len(self.word_to_guess)} character.")
 
         while self.attempts_left > 0:
             self.display_current_state()
