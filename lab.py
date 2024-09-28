@@ -1,20 +1,5 @@
 from random import randint
 
-words = (
-    "Apple",
-    "Tiger",
-    "Chair",
-    "Pizza",
-    "Beach",
-    "Medium",
-    "Garden",
-    "Rocket",
-    "Bridge",
-    "Dragon",
-    "Pencil",
-)
-
-
 class Hangman:
     def __init__(self, words, max_attempts=6) -> None:
         self.words = words
